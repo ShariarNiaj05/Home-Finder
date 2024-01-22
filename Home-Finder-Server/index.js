@@ -102,6 +102,10 @@ async function run() {
 
     })
 
+    app.get('/all-house', async (req, res) => {
+      const result = await houseCollection.find().toArray()
+      res.send(result)
+    })
 
     app.post('/add-house', async (req, res) => {
       try {
@@ -111,6 +115,14 @@ async function run() {
       } catch (error) {
         console.log('/add-house error', addHouse);
       }
+    })
+
+    app.delete('/delete-house/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await houseCollection.deleteOne(query)
+      res.send(result)
+
     })
 
 
