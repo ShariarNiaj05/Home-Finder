@@ -67,7 +67,10 @@ const ManageHouses = () => {
                 <td className="px-6 py-4">{singleHouse.roomSize}</td>
                 <td className="px-6 py-4">{singleHouse.rent}</td>
                 <td className="px-6 py-4">
-                  <Link className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                  <Link
+                    to={`/dashboard/edit-house/${singleHouse._id}`}
+                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  >
                     Edit
                   </Link>
                   <button

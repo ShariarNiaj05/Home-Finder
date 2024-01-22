@@ -5,6 +5,7 @@ import DashboardLayout from "../Layout/DashboardLayout/DashboardLayout";
 import ManageHouses from "../Pages/Dashboard/ManageHouses/ManageHouses";
 import ManageBookings from "../Pages/Dashboard/ManageBookings/ManageBookings";
 import AddNewHouse from "../Pages/Dashboard/AddNewHouse/AddNewHouse";
+import EditHouse from "../Pages/Dashboard/EditHouse/EditHouse";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "manage-booking",
         element: <ManageBookings></ManageBookings>,
+      },
+      {
+        path: "edit-house/:id",
+        element: <EditHouse></EditHouse>,
       },
     ],
   },

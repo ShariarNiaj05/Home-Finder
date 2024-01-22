@@ -107,6 +107,13 @@ async function run() {
       res.send(result)
     })
 
+    app.get('/single-house/:id', async (req, res) => {
+      const id = req.params.id;
+    const query = { _id: new ObjectId(id) }
+      const result = await houseCollection.findOne(query)
+      res.send(result)
+    })
+
     app.post('/add-house', async (req, res) => {
       try {
         const addHouse = req.body;
@@ -126,7 +133,21 @@ async function run() {
     })
 
 
+    app.put('/update-house/:id', async (req, res) => {
+      const id = req.params.id
+      const body = req.body;
+      const query = { _id: new ObjectId(id) }
 
+      const updateHouse = {
+        $set: {
+          ...body
+        }
+      }
+      const option = { upsert: true }
+      const result = await houseCollection.updateOne(query, updateHouse, option)
+      // console.log(result);
+      res.send(result)
+    })
 
 
 
