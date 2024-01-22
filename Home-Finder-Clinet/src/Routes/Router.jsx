@@ -6,12 +6,17 @@ import ManageHouses from "../Pages/Dashboard/ManageHouses/ManageHouses";
 import ManageBookings from "../Pages/Dashboard/ManageBookings/ManageBookings";
 import AddNewHouse from "../Pages/Dashboard/AddNewHouse/AddNewHouse";
 import EditHouse from "../Pages/Dashboard/EditHouse/EditHouse";
+import Home from "../Pages/Home/Home/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
     children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
       {
         path: "/register",
         element: <Register></Register>,
