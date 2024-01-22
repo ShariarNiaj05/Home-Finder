@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 
 const Register = () => {
@@ -8,8 +8,9 @@ const Register = () => {
   const role = useRef();
   const phoneNumber = useRef(); */
   const { createUser } = useAuth();
+  const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     const email = form.get("email");
@@ -27,7 +28,14 @@ const Register = () => {
     };
 
     console.log(newUser);
-    createUser(newUser, email);
+      const userInfo = await createUser(newUser, email);
+      console.log(userInfo);
+    if (role === "houseOwner") {
+      navigate("/dashboard/manage-house");
+    }
+    if (role === "houseRenter") {
+      navigate("/dashboard/manage-booking");
+    }
   };
   return (
     <div className="  max-w-7xl mx-auto">
