@@ -1,7 +1,5 @@
-import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAuth from "../../Hooks/useAuth";
 
 const Register = () => {
   /* const name = useRef();
@@ -9,8 +7,7 @@ const Register = () => {
   const password = useRef();
   const role = useRef();
   const phoneNumber = useRef(); */
-  const axiosSecure = useAxiosSecure();
-  const axiosPublic = useAxiosPublic();
+  const { createUser } = useAuth();
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -30,24 +27,7 @@ const Register = () => {
     };
 
     console.log(newUser);
-    /*  axiosSecure.post("/access-token", email).then((res) => {
-      if (res.data.success) {
-        console.log("user created successfully");
-      }
-    }); */
-
-    axiosPublic.put("/new-user", newUser).then((res) => {
-      if (res.data.insertedId) {
-        console.log(res);
-        if (res.data.insertedId) {
-          console.log("user created successfully");
-        }
-        //   console.log('user created successfully');
-      } else {
-        console.log(res.data.message);
-      }
-    });
-    // console.log(email.current.value);
+    createUser(newUser, email);
   };
   return (
     <div className="  max-w-7xl mx-auto">
