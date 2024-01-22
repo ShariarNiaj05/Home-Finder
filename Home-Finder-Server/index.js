@@ -103,6 +103,15 @@ async function run() {
     })
 
 
+    app.post('/add-house', async (req, res) => {
+      try {
+        const addHouse = req.body;
+        const result = await houseCollection.insertOne(addHouse)
+        res.send(result)
+      } catch (error) {
+        console.log('/add-house error', addHouse);
+      }
+    })
 
 
 

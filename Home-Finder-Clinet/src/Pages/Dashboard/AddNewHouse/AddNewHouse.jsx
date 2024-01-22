@@ -1,4 +1,8 @@
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+
 const AddNewHouse = () => {
+  const axiosPublic = useAxiosPublic();
   const handleAddNewHouse = (e) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -28,6 +32,12 @@ const AddNewHouse = () => {
       description,
     };
 
+    axiosPublic.post("/add-house", newHouse).then((res) => {
+      console.log(res);
+      if (res?.data.insertedId) {
+        Swal.fire("Success", "House Added Successfully", "success");
+      }
+    });
     console.log(newHouse);
   };
   return (
