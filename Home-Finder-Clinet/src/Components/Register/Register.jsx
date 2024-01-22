@@ -1,6 +1,17 @@
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Register = () => {
+  /* const name = useRef();
+  const email = useRef();
+  const password = useRef();
+  const role = useRef();
+  const phoneNumber = useRef(); */
+  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
+
   const handleRegister = (e) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -11,13 +22,32 @@ const Register = () => {
     const phoneNumber = form.get("phoneNumber");
 
     const newUser = {
-      email,
-      name,
-      password,
-      role,
-      phoneNumber,
+      userEmail: email,
+      userName: name,
+      userPassword: password,
+      userRole: role,
+      userPhoneNumber: phoneNumber,
     };
+
     console.log(newUser);
+    /*  axiosSecure.post("/access-token", email).then((res) => {
+      if (res.data.success) {
+        console.log("user created successfully");
+      }
+    }); */
+
+    axiosPublic.put("/new-user", newUser).then((res) => {
+      if (res.data.insertedId) {
+        console.log(res);
+        if (res.data.insertedId) {
+          console.log("user created successfully");
+        }
+        //   console.log('user created successfully');
+      } else {
+        console.log(res.data.message);
+      }
+    });
+    // console.log(email.current.value);
   };
   return (
     <div className="  max-w-7xl mx-auto">
@@ -38,6 +68,7 @@ const Register = () => {
                   </label>
                   <input
                     type="name"
+                    // ref={name}
                     name="name"
                     id="name"
                     className={inputStyle}
@@ -54,6 +85,7 @@ const Register = () => {
                   </label>
                   <input
                     type="email"
+                    // ref={email}
                     name="email"
                     id="email"
                     className={inputStyle}
@@ -71,6 +103,7 @@ const Register = () => {
                   <input
                     type="password"
                     name="password"
+                    // ref={password}
                     id="password"
                     placeholder="••••••••"
                     className={inputStyle}
@@ -89,6 +122,7 @@ const Register = () => {
                   <select
                     name="role"
                     type="select"
+                    // ref={role}
                     id="role"
                     placeholder="••••••••"
                     className={inputStyle}
@@ -104,11 +138,12 @@ const Register = () => {
                     htmlFor="phoneNumber"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Your Password
+                    Your Phone Number
                   </label>
                   <input
                     type=""
                     name="phoneNumber"
+                    // ref={phoneNumber}
                     id="phoneNumber"
                     placeholder="018......."
                     className={inputStyle}

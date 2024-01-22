@@ -11,7 +11,8 @@ const axiosSecure = axios.create({
 const useAxiosSecure = () => {
   useEffect(() => {
     axiosSecure.interceptors.response.use(
-      (response) => {
+        (response) => {
+            console.log(response);
         return response;
       },
       (error) => {
