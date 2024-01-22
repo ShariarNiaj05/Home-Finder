@@ -51,4 +51,12 @@ async function run() {
       // await client.close();
     }
   }
-  run().catch(console.dir);
+run().catch(console.dir);
+  
+app.get('/', (req, res) => {
+    res.send('home finder server..')
+  })
+  
+  app.listen(port, () => {
+    console.log(`Home finder is running on port ${port}`)
+  })
