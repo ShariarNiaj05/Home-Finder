@@ -32,6 +32,7 @@ const client = new MongoClient(uri, {
 
 
 
+const userCollection = client.db('houseFinderDB').collection('user')
 const houseCollection = client.db('houseFinderDB').collection('house')
 
 
