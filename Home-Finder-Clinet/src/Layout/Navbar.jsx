@@ -7,6 +7,9 @@ const Navbar = () => {
       <div className=" bg-sky-600 rounded p-3 text-white">
         <Link to={"/register"}>Register</Link>
       </div>
+      <div className=" bg-sky-600 rounded p-3 text-white">
+        <Link to={"/dashboard"}>Dashboard</Link>
+      </div>
     </div>
   );
 };
