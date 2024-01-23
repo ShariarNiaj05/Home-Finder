@@ -10,7 +10,11 @@ const port = process.env.PORT || 5000
 // middleware
 const corsOptions = {
   origin: ['http://localhost:5173',
-    'http://localhost:5174'],
+    'http://localhost:5174',
+    'https://home-finder-321.surge.sh',
+    'https://home-finder-pro.web.app',
+    'https://home-finder-pro.firebaseapp.com'
+  ],
   credentials: true,
   optionSuccessStatus: 200,
 }
@@ -108,24 +112,24 @@ async function run() {
       const { city, bedrooms, bathrooms, roomSize, minRent, maxRent } = req.query;
 
       const page = parseInt(req.query.page) || 0;
-  const size = parseInt(req.query.size) || 10;
+      const size = parseInt(req.query.size) || 10;
 
-  const filter = {};
+      const filter = {};
 
-  if (city) filter.city = city;
-  if (bedrooms) filter.bedrooms = parseInt(bedrooms);
-  if (bathrooms) filter.bathrooms = parseInt(bathrooms);
-  if (roomSize) filter.roomSize = roomSize;
-  if (minRent && maxRent) {
-    filter.rent = {
-      $gte: parseInt(minRent),
-      $lte: parseInt(maxRent)
-    };
-  }
+      if (city) filter.city = city;
+      if (bedrooms) filter.bedrooms = parseInt(bedrooms);
+      if (bathrooms) filter.bathrooms = parseInt(bathrooms);
+      if (roomSize) filter.roomSize = roomSize;
+      if (minRent && maxRent) {
+        filter.rent = {
+          $gte: parseInt(minRent),
+          $lte: parseInt(maxRent)
+        };
+      }
 
-  const result = await houseCollection.find(filter).skip(page * size).limit(size).toArray();
-  res.send(result);
-      
+      const result = await houseCollection.find(filter).skip(page * size).limit(size).toArray();
+      res.send(result);
+
     })
 
     app.get('/house-count', async (req, res) => {
