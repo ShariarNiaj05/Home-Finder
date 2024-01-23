@@ -34,6 +34,7 @@ const client = new MongoClient(uri, {
 
 const userCollection = client.db('houseFinderDB').collection('user')
 const houseCollection = client.db('houseFinderDB').collection('house')
+const bookingCollection = client.db('houseFinderDB').collection('bookings')
 
 
 const verifyToken = async (req, res, next) => {
@@ -109,7 +110,7 @@ async function run() {
 
     app.get('/single-house/:id', async (req, res) => {
       const id = req.params.id;
-    const query = { _id: new ObjectId(id) }
+      const query = { _id: new ObjectId(id) }
       const result = await houseCollection.findOne(query)
       res.send(result)
     })
@@ -133,6 +134,17 @@ async function run() {
     })
 
 
+
+    app.delete('/delete-booking/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await bookingCollection.deleteOne(query)
+      console.log(result);
+      res.send(result)
+
+    })
+
+
     app.put('/update-house/:id', async (req, res) => {
       const id = req.params.id
       const body = req.body;
@@ -148,6 +160,21 @@ async function run() {
       // console.log(result);
       res.send(result)
     })
+
+
+
+    app.get('/all-bookings', async (req, res) => {
+      const result = await bookingCollection.find().toArray()
+      res.send(result)
+    })
+
+    app.post('/booking-house', async (req, res) => {
+      const body = req.body;
+      const result = await bookingCollection.insertOne(body)
+      res.send(result)
+    })
+
+
 
 
 
