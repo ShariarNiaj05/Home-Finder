@@ -1,5 +1,11 @@
+import AllHomeHouse from "../AllHomeHouse/AllHomeHouse";
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <AllHomeHouse></AllHomeHouse>
+    </div>
+  );
 };
 
 export default Home;
